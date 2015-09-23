@@ -28,6 +28,10 @@ public class Event extends AbstractObj {
 	public void setOptionList(List<Option> optionList) {
 		OptionList = optionList;
 	}
+	
+	public void addOption(Option option) {
+		OptionList.add(option);
+	}
 
 	public List<Selection> getSelectionList() {
 		return selectionList;
@@ -37,4 +41,8 @@ public class Event extends AbstractObj {
 		this.selectionList = selectionList;
 	}
 
+	public void addSelection(Selection selection) {
+		selectionList.add(selection);
+	}
+	
 }

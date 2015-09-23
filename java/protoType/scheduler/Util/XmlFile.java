@@ -18,6 +18,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import protoType.scheduler.bean.Event;
+import protoType.scheduler.bean.Option;
+
 public class XmlFile {
 
 	private Document document;
@@ -34,24 +37,48 @@ public class XmlFile {
 	}
 
 	// for test
-	public void createXml(String fileName) {
+	public void createXml(Event eventObj) {
 		Element event = this.document.createElement("event");
 		this.document.appendChild(event);
 
 		Element eventId = this.document.createElement("eventId");
-		eventId.appendChild(this.document.createTextNode("111223"));
+		eventId.appendChild(this.document.createTextNode(eventObj.getId()));
 		event.appendChild(eventId);
 
 		Element eventName = this.document.createElement("eventName");
-		eventName.appendChild(this.document.createTextNode("aaaaaaa"));
+		eventName.appendChild(this.document.createTextNode(eventObj.getName()));
 		event.appendChild(eventName);
 
 		Element eventDetail = this.document.createElement("eventDetail");
-		eventDetail.appendChild(this.document
-				.createTextNode("aaaaaaabbbbbbbbbbbbbbbb"));
+		eventDetail.appendChild(this.document.createTextNode(eventObj
+				.getDetail()));
 		event.appendChild(eventDetail);
 		
 		//TODO create option's node & selection's node
+		
+		Element eventOptions = this.document.createElement("eventOptions");
+		event.appendChild(eventOptions);
+		for (Option eachOption : eventObj.getOptionList()) { 
+			Element option = this.document.createElement("option");
+			eventOptions.appendChild(option);
+			
+			Element optionId = this.document.createElement("optionId");
+			optionId.appendChild(this.document.createTextNode(eachOption.getId()));
+			option.appendChild(optionId);
+			
+			Element optionName = this.document.createElement("optionName");
+			optionName.appendChild(this.document.createTextNode(eachOption.getName()));
+			option.appendChild(optionName);
+			
+			Element optionDetail = this.document.createElement("optionDetail");
+			optionDetail.appendChild(this.document.createTextNode(eachOption.getDetail()==null?"":eachOption.getDetail()));
+			option.appendChild(optionDetail);
+		}   
+		
+		
+
+		
+		
 
 		
 		/*
@@ -66,10 +93,12 @@ public class XmlFile {
 					<optionId>1</optionId>
 					<optionName>aaaaaaa</optionName>
 					<optionDetail>aaaaaaabbbbbbbbbbbbbbbb</optionDetail>
-					<optionId>2</optionId>
-					<optionName>aaaaaaa</optionName>
-					<optionDetail>aaaaaaabbbbbbbbbbbbbbbb</optionDetail>
 				</option>
+				<option>
+					<optionId>2</optionId>
+					<optionName>ssssss</optionName>
+					<optionDetail>eewqweqewq</optionDetail>
+				</option>			
 			</eventOptions>
 			<userSelections>
 				<selection>
@@ -99,6 +128,11 @@ public class XmlFile {
 			DOMSource source = new DOMSource(document);
 			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			
+			
+			//TODO  properties file
+			String fileName="C:/protoType.xml";
+			
 			PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
 			StreamResult result = new StreamResult(pw);
 			transformer.transform(source, result);

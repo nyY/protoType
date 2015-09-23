@@ -4,8 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
-import protoType.scheduler.Util.XmlFile;
 import protoType.scheduler.action.base.BaseAction;
+import protoType.scheduler.bean.Event;
+import protoType.scheduler.bean.Option;
 import protoType.scheduler.logic.EventLogic;
 
 /**
@@ -30,19 +31,10 @@ public class EventAction extends BaseAction {
 
 		addActionMessage("execute() is started");
 		
-		//xml test start
-		
-		XmlFile xmlFile = new XmlFile();
-		xmlFile.init();
-		String str="C:/protoType.xml";
-		xmlFile.createXml(str); 
-		//xmlFile.parserXml(str);
-		
-		//xml test end
+
 		
 		EventLogic eventLogic = new EventLogic();
-		
-		eventLogic.loadEvent("12313");
+		eventLogic.loadEvent("12312");
 
 		return SUCCESS;
 
@@ -58,6 +50,30 @@ public class EventAction extends BaseAction {
 
 		addActionMessage("create() is started");
 
+		
+		Event event = new Event();
+
+		event.setId("A1");
+		event.setName("name1111");
+		event.setDetail("detail1111");
+		
+		Option opt1 = new Option();
+		opt1.setId("Opt1");
+		opt1.setName("Opt1Name");
+		opt1.setDetail("Opt1Detail");
+		
+		event.addOption(opt1);
+		
+		Option opt2 = new Option();
+		opt2.setId("Opt2");
+		opt2.setName("Opt2Name");
+		event.addOption(opt2);
+		
+		EventLogic eventLogic = new EventLogic();
+		eventLogic.createEvent(event);
+		
+		
+		
 		return SUCCESS;
 
 	}
@@ -71,7 +87,13 @@ public class EventAction extends BaseAction {
 		clearMessages();
 
 		addActionMessage("edit() is started");
-
+		
+		
+		Event event = new Event();
+		EventLogic eventLogic = new EventLogic();
+		eventLogic.editEvent(event);
+		
+		
 		return SUCCESS;
 
 	}

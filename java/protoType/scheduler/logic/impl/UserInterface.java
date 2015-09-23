@@ -11,10 +11,10 @@ public interface UserInterface {
 	public Event loadEvent(String eventId);
 	
 	//Executor : the creator of event
-	public boolean createEvent(String eventId);
+	public boolean createEvent(Event event);
 	
 	//Executor : the creator of event
-	public boolean editEvent(String eventId);
+	public boolean editEvent(Event event);
 	
 	//Executor : the creator of event
 	public boolean addOption(Option opt);

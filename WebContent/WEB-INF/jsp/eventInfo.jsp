@@ -13,5 +13,9 @@
 	<s:actionmessage/>
   </s:if>
   
+  <a href="Event">top</a><br/>
+  <a href="Create">create</a><br/>
+  <a href="Edit">edit</a><br/>
+  <a href="Select">select</a><br/>
   </body>  
 </html>  

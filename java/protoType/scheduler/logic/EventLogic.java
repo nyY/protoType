@@ -1,6 +1,7 @@
 package protoType.scheduler.logic;
 
 import protoType.scheduler.Dto.EventDto;
+import protoType.scheduler.Util.XmlFile;
 import protoType.scheduler.bean.Event;
 import protoType.scheduler.bean.Option;
 import protoType.scheduler.bean.Selection;
@@ -11,22 +12,25 @@ public class EventLogic implements UserInterface {
 	@Override
 	public Event loadEvent(String eventId) {
 		// TODO Auto-generated method stub
-		
-		
 		return null;
 	}
 
 	@Override
-	public boolean createEvent(String eventId) {
+	public boolean createEvent(Event event) {
 		// TODO Auto-generated method stub
+
 		
+		XmlFile xmlFile = new XmlFile();
+		xmlFile.init();
+		xmlFile.createXml(event); 
+
 		
 		
 		return false;
 	}
 
 	@Override
-	public boolean editEvent(String eventId) {
+	public boolean editEvent(Event event) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -54,5 +58,7 @@ public class EventLogic implements UserInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
