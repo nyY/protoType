@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd"> 
+<struts>  
+	<!-- 指定struts处于开发阶段可以调试 -->  
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+    
+	<package name="default" namespace="/" extends="struts-default" >  
+	
+		<action name="Event" class="protoType.scheduler.action.EventAction">
+            <result name="success">/WEB-INF/jsp/eventInfo.jsp</result>  
+        </action> 
+        
+        <action name="Create" class="protoType.scheduler.action.EventAction" method="create">
+            <result name="success">/WEB-INF/jsp/eventInfo.jsp</result>  
+        </action> 
+
+        <action name="Edit" class="protoType.scheduler.action.EventAction" method="edit">
+            <result name="success">/WEB-INF/jsp/eventInfo.jsp</result>  
+        </action>
+        
+        <action name="Select" class="protoType.scheduler.action.EventAction" method="select">
+            <result name="success">/WEB-INF/jsp/eventInfo.jsp</result>  
+        </action>
+	</package>  
+</struts>  
