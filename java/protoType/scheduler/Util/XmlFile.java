@@ -3,6 +3,8 @@ package protoType.scheduler.Util;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -37,7 +39,16 @@ public class XmlFile {
 	}
 
 	// for test
-	public void createXml(Event eventObj) {
+	public String createXml(Event eventObj) {
+		
+		
+		//TODO  properties file
+		String xmlName = "/protoType/xml/";
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		xmlName = xmlName + formatter.format(cal.getTime()) + eventObj.getId();
+
+
 		Element event = this.document.createElement("event");
 		this.document.appendChild(event);
 
@@ -54,7 +65,6 @@ public class XmlFile {
 				.getDetail()));
 		event.appendChild(eventDetail);
 		
-		//TODO create option's node & selection's node
 		
 		Element eventOptions = this.document.createElement("eventOptions");
 		event.appendChild(eventOptions);
@@ -129,23 +139,26 @@ public class XmlFile {
 			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			
-			
-			//TODO  properties file
-			String fileName="C:/protoType.xml";
-			
-			PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
+
+			PrintWriter pw = new PrintWriter(new FileOutputStream(xmlName));
 			StreamResult result = new StreamResult(pw);
 			transformer.transform(source, result);
 			LogUtil.setInfoLog("createXml success");
 		} catch (TransformerConfigurationException e) {
 			LogUtil.setErrorLog(e.getMessage());
+			xmlName = null;
 		} catch (IllegalArgumentException e) {
 			LogUtil.setErrorLog(e.getMessage());
+			xmlName = null;
 		} catch (FileNotFoundException e) {
 			LogUtil.setErrorLog(e.getMessage());
+			xmlName = null;
 		} catch (TransformerException e) {
 			LogUtil.setErrorLog(e.getMessage());
+			xmlName = null;
 		}
+		
+		return xmlName;
 	}
 
 	// for test

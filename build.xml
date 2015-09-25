@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- properies -->  
+<project name="protoType" default="build" basedir=".">
+<property name="src.dir" value="java"/>
+<property name="lib.dir" value="WebContent\WEB-INF\lib" />
+<property name="classes.dir" value="build"/>
+<property name="webContent.dir" value="WebContent"/>
+<property name="deploy.dir" value="deploy"/>
+<property name="protoType.war" value="protoType.war"/>
+
+
+<!-- define classpath -->
+<path id="master-classpath">
+<fileset file="${lib.dir}/*.jar" />
+<pathelement path="${classes.dir}"/>
+</path>
+
+<!-- init 
+<target name="init">
+   <mkdir dir="${classes.dir}"/>
+</target>
+-->
+
+<!-- compile 
+<target name="compile" depends="init" description="compile the source files">
+<javac srcdir="${src.dir}" destdir="${classes.dir}" >
+<classpath refid="master-classpath"/>
+</javac>
+</target>
+-->
+
+<!-- make war -->
+<target name="build" description="make .war file">
+<mkdir dir="${deploy.dir}"/>
+<copydir src="${webContent.dir}" dest="${deploy.dir}" >
+</copydir>
+<copydir src="${classes.dir}" dest="${deploy.dir}\WEB-INF" >
+</copydir>
+<war destfile="${protoType.war}" basedir="${deploy.dir}"/> 
+<deltree dir="${deploy.dir}"/>
+</target>
+
+
+</project>
